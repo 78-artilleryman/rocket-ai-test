@@ -14,8 +14,10 @@ export interface SaJuColumn {
   tenStarBottomKor: string; // 하부 십성 한글
   twelveStars: string; // 十二運星
   twelveStarsKor: string; // 십이운성 한글
-  twelveFates: string[]; // 十二神煞
-  twelveFatesKor: string[]; // 십이신살 한글
+  twelveFates: string; // 十二神煞
+  twelveFatesKor: string; // 십이신살 한글
+  nobles: string[]; // 貴人
+  noblesKor: string[]; // 귀인 한글
 }
 
 export interface SaJuTableProps {
@@ -65,8 +67,10 @@ export const dummySaJuData: SaJuTableProps = {
       tenStarBottomKor: "편재",
       twelveStars: "長生",
       twelveStarsKor: "장생",
-      twelveFates: [],
-      twelveFatesKor: [],
+      twelveFates: "劫殺",
+      twelveFatesKor: "겁살",
+      nobles: [],
+      noblesKor: [],
     },
     month: {
       tenStar: "劫財",
@@ -87,8 +91,10 @@ export const dummySaJuData: SaJuTableProps = {
       tenStarBottomKor: "정재",
       twelveStars: "帝旺",
       twelveStarsKor: "제왕",
-      twelveFates: ["月德", "天德"],
-      twelveFatesKor: ["월덕귀인", "천덕귀인"],
+      twelveFates: "地殺",
+      twelveFatesKor: "지살",
+      nobles: ["天乙", "文昌"],
+      noblesKor: ["천을귀인", "문창귀인"],
     },
     day: {
       tenStar: "食神",
@@ -109,8 +115,10 @@ export const dummySaJuData: SaJuTableProps = {
       tenStarBottomKor: "편관",
       twelveStars: "衰",
       twelveStarsKor: "쇠",
-      twelveFates: ["天德", "月德"],
-      twelveFatesKor: ["천덕귀인", "월덕귀인"],
+      twelveFates: "驛馬殺",
+      twelveFatesKor: "역마살",
+      nobles: [],
+      noblesKor: [],
     },
     time: {
       tenStar: "傷官",
@@ -131,8 +139,10 @@ export const dummySaJuData: SaJuTableProps = {
       tenStarBottomKor: "정관",
       twelveStars: "死",
       twelveStarsKor: "사",
-      twelveFates: ["天醫", "月德"],
-      twelveFatesKor: ["천의", "월덕귀인"],
+      twelveFates: "將星殺",
+      twelveFatesKor: "장성살",
+      nobles: ["將星", "太極"],
+      noblesKor: ["장성귀인", "태극귀인"],
     },
   },
 };

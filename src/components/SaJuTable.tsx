@@ -69,38 +69,35 @@ const SaJuTable = ({ birthDateTime, saJuData, name }: SaJuTableProps) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="w-[50px] border border-black border-t-0 border-l-0 p-1 text-xl"></th>
-                  <th className=" border border-black border-t-0 p-1 text-xl">
+                  <th className="w-[50px] border border-black border-t-0 border-l-0 p-1 text-lg"></th>
+                  <th className="w-[55px] border border-black border-t-0 p-1 text-lg">
                     時
                   </th>
-                  <th className=" border border-black border-t-0 p-1 text-xl">
+                  <th className="w-[55px] border border-black border-t-0 p-1 text-lg">
                     日
                   </th>
-                  <th className=" border border-black border-t-0 p-1 text-xl">
+                  <th className="w-[55px] border border-black border-t-0 p-1 text-lg">
                     月
                   </th>
-                  <th className=" border border-black border-t-0 border-r-0 p-1 text-xl">
+                  <th className="w-[55px] border border-black border-t-0 border-r-0 p-1 text-lg">
                     年
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map(({ title, data }: RowConfig, index) => {
-                  // 천간이나 지지인 경우 StemBranchCell을 사용
                   const isStemOrBranch =
                     title.hanja === "天干" || title.hanja === "地支";
 
                   return (
                     <tr key={index}>
                       <td
-                        className={`min-w-[50px] border border-black border-l-0 py-1 pr-2 text-center font-bold ${
+                        className={`w-[50px] border border-black border-l-0 py-1 px-1 text-center font-bold ${
                           title.isSmall ? "text-[10px]" : "text-xs"
                         }`}
                       >
                         <p>{title.hanja}</p>
-                        <p className="text-[7px] font-medium">
-                          ({title.hangul})
-                        </p>
+                        <p className="text-[7px] font-bold">({title.hangul})</p>
                       </td>
                       {PERIODS.map((period) => {
                         if (isStemOrBranch) {
@@ -112,7 +109,7 @@ const SaJuTable = ({ birthDateTime, saJuData, name }: SaJuTableProps) => {
                           return (
                             <td
                               key={period}
-                              className={`border border-black p-1 text-center ${
+                              className={`w-[55px] border border-black p-1 text-center ${
                                 period === "year" ? "border-r-0" : ""
                               }`}
                             >
@@ -125,14 +122,16 @@ const SaJuTable = ({ birthDateTime, saJuData, name }: SaJuTableProps) => {
                         return (
                           <td
                             key={period}
-                            className={`border border-black p-1 text-center bg-[#FDFDFB] ${
+                            className={`w-[55px] border border-black p-1 text-center bg-[#FDFDFB] ${
                               period === "year" ? "border-r-0" : ""
                             }`}
                           >
                             <p className="text-sm font-bold">
                               {cellData.hanja}
                             </p>
-                            <p className="text-[10px]">({cellData.hangul})</p>
+                            <p className="text-[10px] font-bold">
+                              ({cellData.hangul})
+                            </p>
                           </td>
                         );
                       })}
@@ -140,28 +139,55 @@ const SaJuTable = ({ birthDateTime, saJuData, name }: SaJuTableProps) => {
                   );
                 })}
                 <tr>
-                  <td className="min-w-[50px] border border-black border-l-0 border-b-0 py-1 pr-2 text-center font-bold text-xs">
-                    <p>貴人</p>
-                    <p className="text-[7px] font-medium">(귀인)</p>
+                  <td className="w-[50px] border border-black border-l-0 border-b-0 py-1 px-1 text-center font-bold text-[10px]">
+                    <p>十二神煞</p>
+                    <p className="text-[7px] font-bold">(십이신살)</p>
                   </td>
                   {PERIODS.map((period) => (
                     <td
                       key={period}
-                      className={`border border-black border-b-0 p-1 text-center bg-[#FDFDFB] ${
+                      className={`w-[55px] border border-black border-b-0 p-1 text-center bg-[#FDFDFB] ${
                         period === "year" ? "border-r-0" : ""
                       }`}
                     >
-                      {saJuData[period].twelveFates.length > 0 ? (
-                        saJuData[period].twelveFates.map((fate, index) => (
+                      {saJuData[period].twelveFates ? (
+                        <>
+                          <p className="text-sm font-bold">
+                            {saJuData[period].twelveFates}
+                          </p>
+                          <p className="text-[10px] font-bold">
+                            ({saJuData[period].twelveFatesKor})
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-[10px] font-bold">(없음)</p>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+                <tr>
+                  <td className="w-[50px] border border-black border-l-0 border-b-0 py-1 px-1 text-center font-bold text-xs">
+                    <p>貴人</p>
+                    <p className="text-[7px] font-bold">(귀인)</p>
+                  </td>
+                  {PERIODS.map((period) => (
+                    <td
+                      key={period}
+                      className={`w-[55px] border border-black border-b-0 p-1 text-center bg-[#FDFDFB] ${
+                        period === "year" ? "border-r-0" : ""
+                      }`}
+                    >
+                      {saJuData[period].nobles.length > 0 ? (
+                        saJuData[period].nobles.map((noble, index) => (
                           <React.Fragment key={index}>
-                            <p className="text-sm font-bold">{fate}</p>
-                            <p className="text-[10px]">
-                              ({saJuData[period].twelveFatesKor[index]})
+                            <p className="text-sm font-bold">{noble}</p>
+                            <p className="text-[10px] font-bold">
+                              ({saJuData[period].noblesKor[index]})
                             </p>
                           </React.Fragment>
                         ))
                       ) : (
-                        <p className="text-[10px]">(없음)</p>
+                        <p className="text-[10px] font-bold">(없음)</p>
                       )}
                     </td>
                   ))}

@@ -1,11 +1,5 @@
+import { StemBranchData } from "@/constants";
 import React from "react";
-
-export interface StemBranchData {
-  hanja: string; // 메인 한자 (예: 甲)
-  hangul: string; // 한글 (예: 갑)
-  element: "wood" | "fire" | "earth" | "metal" | "water"; // 오행
-  elementHanja: string; // 오행 한자 (예: 陽木)
-}
 
 const getElementColor = (element: StemBranchData["element"]) => {
   switch (element) {
