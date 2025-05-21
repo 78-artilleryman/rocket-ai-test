@@ -2,7 +2,7 @@
 
 ## 기술 스택
 
-- **Frontend Framework**: Next.js 14
+- **Frontend Framework**: Next.js 14(Page Router)
 - **스타일링**: Tailwind CSS
 - **언어**: TypeScript
 
