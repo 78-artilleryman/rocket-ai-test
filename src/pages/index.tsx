@@ -1,7 +1,10 @@
 import { Background, Title } from "@/components";
+import SaJuTable from "@/components/SaJuTable";
+import { dummySaJuData } from "@/constants";
 import Image from "next/image";
 
 export default function Home() {
+  const name = "윤병현";
   return (
     <main className="max-w-md mx-auto bg-yellow-gradient relative overflow-hidden">
       {/* 첫번째 섹션*/}
@@ -20,7 +23,7 @@ export default function Home() {
         </div>
         <p className="text-[#424242] text-center text-base font-normal max-w-[140px] absolute top-5 left-15 z-50">
           이제 본격적으로 <br />
-          OO님의 사주팔자를 분석해볼 차례네요.
+          {name}님의 사주팔자를 분석해볼 차례네요.
         </p>
         <div className="w-[351px] pt-27.5 flex justify-between">
           <div className="w-[153px] pt-32">
@@ -46,7 +49,7 @@ export default function Home() {
           />
         </div>
         <p className="text-[#424242] text-center text-base font-normal max-w-[172px] absolute -top-18 left-14 z-50">
-          제가 oo님의 사주를
+          제가 {name}님의 사주를
           <br />
           보기 쉽게 표로 정리했어요.
         </p>
@@ -60,7 +63,11 @@ export default function Home() {
           <div className="w-full h-[118px] bg-white-gradient absolute left-0 bottom-0 z-50"></div>
         </div>
         {/* 사주 표*/}
-        <div className="w-[350px] h-[620px] bg-red-200 -mt-5 mx-auto"></div>
+        <SaJuTable
+          birthDateTime={dummySaJuData.birthDateTime}
+          saJuData={dummySaJuData.saJuData}
+          name={name}
+        />
       </section>
     </main>
   );
