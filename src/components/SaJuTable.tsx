@@ -7,6 +7,7 @@ import {
 } from "@/utils";
 import Image from "next/image";
 import React from "react";
+import { StemBranchCell } from "./StemBranchCell";
 
 export interface SaJuTableProps {
   birthDateTime: {
@@ -68,59 +69,85 @@ const SaJuTable = ({ birthDateTime, saJuData, name }: SaJuTableProps) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="w-[60px] border border-black border-t-0 border-l-0 py-1 px-2 text-lg"></th>
-                  <th className="w-[70px] border border-black border-t-0 py-1 px-2 text-lg">
+                  <th className="w-[50px] border border-black border-t-0 border-l-0 p-1 text-xl"></th>
+                  <th className=" border border-black border-t-0 p-1 text-xl">
                     時
                   </th>
-                  <th className="w-[70px] border border-black border-t-0 py-1 px-2 text-lg">
+                  <th className=" border border-black border-t-0 p-1 text-xl">
                     日
                   </th>
-                  <th className="w-[70px] border border-black border-t-0 py-1 px-2 text-lg">
+                  <th className=" border border-black border-t-0 p-1 text-xl">
                     月
                   </th>
-                  <th className="w-[70px] border border-black border-t-0 border-r-0 py-1 px-2 text-lg">
+                  <th className=" border border-black border-t-0 border-r-0 p-1 text-xl">
                     年
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {rows.map(({ title, data }: RowConfig, index) => (
-                  <tr key={index}>
-                    <td
-                      className={`min-w-[60px] border border-black border-l-0 py-1 px-2 text-center font-bold ${
-                        title.isSmall ? "text-xs" : "text-sm"
-                      }`}
-                    >
-                      <p>{title.hanja}</p>
-                      <p className="text-[10px] font-medium">
-                        ({title.hangul})
-                      </p>
-                    </td>
-                    {PERIODS.map((period) => {
-                      const cellData = data(saJuData[period]);
-                      return (
-                        <td
-                          key={period}
-                          className={`border border-black py-1 px-2 text-center bg-[#FDFDFB] ${
-                            period === "year" ? "border-r-0" : ""
-                          }`}
-                        >
-                          <p className="text-sm font-bold">{cellData.hanja}</p>
-                          <p className="text-[10px]">({cellData.hangul})</p>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
+                {rows.map(({ title, data }: RowConfig, index) => {
+                  // 천간이나 지지인 경우 StemBranchCell을 사용
+                  const isStemOrBranch =
+                    title.hanja === "天干" || title.hanja === "地支";
+
+                  return (
+                    <tr key={index}>
+                      <td
+                        className={`min-w-[50px] border border-black border-l-0 py-1 pr-2 text-center font-bold ${
+                          title.isSmall ? "text-[10px]" : "text-xs"
+                        }`}
+                      >
+                        <p>{title.hanja}</p>
+                        <p className="text-[7px] font-medium">
+                          ({title.hangul})
+                        </p>
+                      </td>
+                      {PERIODS.map((period) => {
+                        if (isStemOrBranch) {
+                          const stemBranchData =
+                            title.hanja === "天干"
+                              ? saJuData[period].heavenlyStem
+                              : saJuData[period].earthlyBranch;
+
+                          return (
+                            <td
+                              key={period}
+                              className={`border border-black p-1 text-center ${
+                                period === "year" ? "border-r-0" : ""
+                              }`}
+                            >
+                              <StemBranchCell {...stemBranchData} />
+                            </td>
+                          );
+                        }
+
+                        const cellData = data(saJuData[period]);
+                        return (
+                          <td
+                            key={period}
+                            className={`border border-black p-1 text-center bg-[#FDFDFB] ${
+                              period === "year" ? "border-r-0" : ""
+                            }`}
+                          >
+                            <p className="text-sm font-bold">
+                              {cellData.hanja}
+                            </p>
+                            <p className="text-[10px]">({cellData.hangul})</p>
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
                 <tr>
-                  <td className="min-w-[60px] border border-black border-l-0 border-b-0 py-1 px-2 text-center font-bold text-xs">
-                    <p>十二神煞</p>
-                    <p className="text-[10px] font-medium">(십이운성)</p>
+                  <td className="min-w-[50px] border border-black border-l-0 border-b-0 py-1 pr-2 text-center font-bold text-xs">
+                    <p>貴人</p>
+                    <p className="text-[7px] font-medium">(귀인)</p>
                   </td>
                   {PERIODS.map((period) => (
                     <td
                       key={period}
-                      className={`border border-black border-b-0 py-1 px-2 text-center bg-[#FDFDFB] ${
+                      className={`border border-black border-b-0 p-1 text-center bg-[#FDFDFB] ${
                         period === "year" ? "border-r-0" : ""
                       }`}
                     >

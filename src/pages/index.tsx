@@ -66,7 +66,7 @@ export default function Home() {
         <SaJuTable
           birthDateTime={dummySaJuData.birthDateTime}
           saJuData={dummySaJuData.saJuData}
-          name={name}
+          name={dummySaJuData.name}
         />
       </section>
     </main>

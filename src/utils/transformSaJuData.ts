@@ -1,4 +1,4 @@
-import { SaJuColumn } from "@/constants";
+import { type SaJuColumn } from "@/constants";
 
 export interface CellData {
   hanja: string;
@@ -26,15 +26,15 @@ export const transformSaJuData = (): RowConfig[] => {
     {
       title: { hanja: "天干", hangul: "천간" },
       data: (data: SaJuColumn): CellData => ({
-        hanja: data.heavenlyStem,
-        hangul: data.heavenlyStemKor,
+        hanja: data.heavenlyStem.hanja,
+        hangul: data.heavenlyStem.hangul,
       }),
     },
     {
       title: { hanja: "地支", hangul: "지지" },
       data: (data: SaJuColumn): CellData => ({
-        hanja: data.earthlyBranch,
-        hangul: data.earthlyBranchKor,
+        hanja: data.earthlyBranch.hanja,
+        hangul: data.earthlyBranch.hangul,
       }),
     },
     {
